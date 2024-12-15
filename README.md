@@ -9,6 +9,7 @@ just run ```docker compose up```
 
 You can run the test after the application start with
 
+* ```cd test-app```
 * ```npm install```
 * ```npm run test```
 
