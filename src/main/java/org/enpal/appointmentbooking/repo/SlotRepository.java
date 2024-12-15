@@ -11,6 +11,5 @@ import java.util.List;
 public interface SlotRepository extends JpaRepository<Slot, Integer> {
 
     List<Slot> findByBookedTrueAndStartDateBetween(OffsetDateTime start, OffsetDateTime end);
-
     List<Slot> findByBookedFalseAndStartDateBetween(OffsetDateTime start, OffsetDateTime end);
 }
