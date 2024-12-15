@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Comparator;
@@ -28,6 +29,10 @@ public class AppointmentBookingService {
         OffsetDateTime endOfDay = startOfDay.plusDays(1);
 
         List<Slot> allSlots = slotRepository.findByBookedFalseAndStartDateBetween(startOfDay, endOfDay);
+        if(allSlots.isEmpty()) {
+            return Collections.emptyList();
+        }
+
         List<Slot> bookedSlots = slotRepository.findByBookedTrueAndStartDateBetween(startOfDay, endOfDay);
 
         Map<Integer, List<Slot>> bookedSlotsMap = groupSlotsBySalesManager(bookedSlots);

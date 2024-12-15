@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+
 @ExtendWith(MockitoExtension.class)
 class AppointmentBookingServiceTest {
 
@@ -39,13 +40,14 @@ class AppointmentBookingServiceTest {
         OffsetDateTime endOfDay = startOfDay.plusDays(1);
         SlotRequestDto requestDto = new SlotRequestDto(queryDate, List.of("ProductA"), "English", "Gold");
         when(slotRepository.findByBookedFalseAndStartDateBetween(startOfDay, endOfDay)).thenReturn(Collections.emptyList());
-        when(slotRepository.findByBookedTrueAndStartDateBetween(startOfDay, endOfDay)).thenReturn(Collections.emptyList());
 
         // Act
         List<AvailableSlotDto> result = service.findAvailableSlots(requestDto);
 
         // Assert
         assertEquals(0, result.size());
+        verify(slotRepository).findByBookedFalseAndStartDateBetween(startOfDay, endOfDay);
+        verifyNoMoreInteractions(slotRepository);
     }
 
     @Test
