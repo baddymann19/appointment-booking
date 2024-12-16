@@ -18,7 +18,9 @@ import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @WebMvcTest(AppointmentController.class)
 public class AppointmentControllerTest {
@@ -52,6 +54,6 @@ public class AppointmentControllerTest {
                  .content(new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(slotRequestDto)))
                  .andExpect(status().isBadRequest())
                  .andExpect(jsonPath("$.detail").value("Validation failed for the provided request data."))
-                 .andExpect(jsonPath("$.fieldErrors.rating").value("rating cannot be empty"));
+                 .andExpect(jsonPath("$.errors[0].message").value("rating cannot be empty"));
     }
 }

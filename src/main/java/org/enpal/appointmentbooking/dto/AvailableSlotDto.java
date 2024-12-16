@@ -1,7 +1,9 @@
 package org.enpal.appointmentbooking.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
 
